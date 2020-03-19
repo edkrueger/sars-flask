@@ -28,7 +28,3 @@ def show_records():
 @app.teardown_appcontext
 def remove_session(*args, **kwargs):
     app.session.remove()
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
