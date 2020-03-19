@@ -6,3 +6,5 @@ README.md
 __pycache__
 sars_2003_complete_dataset_clean.csv
 load.py
+.vscode/
+.gitignore
