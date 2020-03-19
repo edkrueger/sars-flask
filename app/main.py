@@ -1,41 +1,29 @@
 from typing import List
 
-from fastapi import Depends, FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from starlette.responses import RedirectResponse
+from flask import Flask, jsonify, url_for
+from flask_cors import CORS
 
-from . import models, schemas
+from . import models
 from .database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = Flask(__name__)
+CORS(app)
 
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
-
-# Dependency
-def get_db():
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
-
-
-@app.get("/")
+@app.route("/")
 def main():
-    return RedirectResponse(url="/docs/")
+    return f"See the data at {url_for('show_records')}"
 
 
-@app.get("/records/", response_model=List[schemas.Record])
-def show_records(db: Session = Depends(get_db)):
+@app.route("/records/")
+def show_records():
+    db = SessionLocal()
     records = db.query(models.Record).all()
-    return records
+    db.close()
+    return jsonify([record.to_dict() for record in records])
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
