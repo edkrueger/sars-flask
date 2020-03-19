@@ -7,11 +7,9 @@ verify_ssl = true
 
 [packages]
 sqlalchemy = "*"
-pydantic = "*"
-fastapi = "*"
-uvicorn = "*"
-starlette = "*"
 gunicorn = "*"
+flask = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
