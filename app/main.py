@@ -1,5 +1,3 @@
-from typing import List
-
 from flask import Flask, _app_ctx_stack, jsonify, url_for
 from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
