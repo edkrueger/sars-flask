@@ -142,3 +142,5 @@ cython_debug/
 media
 static
 .vscode/
+.idea/
+.envrc

@@ -1,7 +1,9 @@
+import datetime
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.types import Date
+
 from .database import Base
-import datetime
 
 
 class DictMixIn:
@@ -16,7 +18,7 @@ class DictMixIn:
         }
 
 
-class Record(Base, DictMixIn):
+class Record(DictMixIn, Base):
     __tablename__ = "Records"
 
     id = Column(Integer, primary_key=True, index=True)
